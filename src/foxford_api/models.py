@@ -9,15 +9,6 @@ from database import engine, Base
 from sqlalchemy import Column, Integer, DateTime, ForeignKey, String, Text
 
 
-class StatusType(str, Enum):
-    """
-    Возможные варианты статуса тикета
-    """
-    Open = 'Открыт'
-    OnWork = 'В работе'
-    Closed = 'Закрыт'
-
-
 class Client(Base):
     """
     Таблица с клиентами
@@ -51,7 +42,7 @@ class Tickets(Base):
     """
     __tablename__ = 'tickets'
     id = Column(Integer, primary_key=True, index=True, nullable=False)
-    status = StatusType.Open
+    status = Column(String, nullable=False)
     create_at = Column(DateTime(timezone=True), server_default=func.now())
     update_at = Column(DateTime(timezone=True), onupdate=func.now())
     name = Column(String, nullable=False)

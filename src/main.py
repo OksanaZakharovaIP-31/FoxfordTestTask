@@ -26,5 +26,6 @@ def get_quiz(db: Session = Depends(get_db)):
     results = db.query(Tickets).all()
     return results
 
+
 if __name__ == '__main__':
     uvicorn.run(app, host='localhost', port=8000)

@@ -1,7 +1,17 @@
 """
 Validation data
 """
+from enum import Enum
+
 from pydantic import BaseModel, ConfigDict
+
+class StatusType(str, Enum):
+    """
+    Возможные варианты статуса тикета
+    """
+    Open = 'Открыт'
+    OnWork = 'В работе'
+    Closed = 'Закрыт'
 
 
 class ClientModel(BaseModel):
@@ -17,6 +27,7 @@ class Employee(BaseModel):
 class TicketsModel(BaseModel):
     model_config = ConfigDict(arbitrary_types_allowed=True)
     id: int
+    status: StatusType = StatusType.Open
 
 
 class MessageModel(BaseModel):
