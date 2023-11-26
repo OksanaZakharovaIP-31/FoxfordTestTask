@@ -6,7 +6,7 @@ from enum import Enum
 from sqlalchemy.orm import relationship
 
 from database import engine, Base
-from sqlalchemy import Column, Integer, DateTime, ForeignKey, String
+from sqlalchemy import Column, Integer, DateTime, ForeignKey, String, Text
 
 
 class StatusType(str, Enum):
@@ -70,13 +70,15 @@ class Message(Base):
     id = Column(Integer, primary_key=True, index=True, nullable=False)
 
     ticket_id = Column(Integer, ForeignKey('tickets.id', ondelete='CASCADE'), nullable=False)
-    ticket = relationship('Ticket', back_populates='message')
+    ticket = relationship('Tickets', back_populates='message')
 
     client_id = Column(Integer, ForeignKey('client.id', ondelete='CASCADE'), nullable=False)
     client = relationship('Client', back_populates='message')
 
     employee_id = Column(Integer, ForeignKey('employee.id', ondelete='CASCADE'), nullable=True)
     employee = relationship('Employee', back_populates='message')
+
+    text = Column(Text)
 
 
 Base.metadata.create_all(bind=engine)
