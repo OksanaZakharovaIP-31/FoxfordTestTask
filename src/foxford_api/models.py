@@ -1,7 +1,6 @@
 """
 Модели БД
 """
-from enum import Enum
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 
@@ -42,7 +41,7 @@ class Tickets(Base):
     """
     __tablename__ = 'tickets'
     id = Column(Integer, primary_key=True, index=True, nullable=False)
-    status = Column(String, nullable=False)
+    status = Column(String, nullable=False, server_default='Open')
     create_at = Column(DateTime(timezone=True), server_default=func.now())
     update_at = Column(DateTime(timezone=True), onupdate=func.now())
     name = Column(String, nullable=False)
