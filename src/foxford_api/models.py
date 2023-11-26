@@ -66,10 +66,10 @@ class Message(Base):
     """
     Таблица с сообщениями
     """
-    __tablemane__ = 'message'
+    __tablename__ = 'message'
     id = Column(Integer, primary_key=True, index=True, nullable=False)
 
-    ticket_id = Column(Integer, ForeignKey('ticker.id', ondelete='CASCADE'), nullable=False)
+    ticket_id = Column(Integer, ForeignKey('tickets.id', ondelete='CASCADE'), nullable=False)
     ticket = relationship('Ticket', back_populates='message')
 
     client_id = Column(Integer, ForeignKey('client.id', ondelete='CASCADE'), nullable=False)
