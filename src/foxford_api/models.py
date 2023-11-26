@@ -2,7 +2,7 @@
 Модели БД
 """
 from enum import Enum
-
+from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 
 from database import engine, Base
@@ -25,6 +25,7 @@ class Client(Base):
     __tablename__ = 'client'
     id = Column(Integer, primary_key=True, index=True, nullable=False)
     name = Column(String, unique=True, nullable=False)
+
     ticket = relationship("Tickets", back_populates='client')
     message = relationship('Message', back_populates='client')
 
@@ -39,6 +40,7 @@ class Employee(Base):
     email = Column(String, unique=True, nullable=False)
     login = Column(String, unique=True, nullable=False)
     password = Column(String, unique=True, nullable=False)
+
     ticket = relationship("Tickets", back_populates='employee')
     message = relationship('Message', back_populates='employee')
 
@@ -50,8 +52,9 @@ class Tickets(Base):
     __tablename__ = 'tickets'
     id = Column(Integer, primary_key=True, index=True, nullable=False)
     status = StatusType.Open
-    create_at = Column(DateTime)
-    update_at = Column(DateTime)
+    create_at = Column(DateTime(timezone=True), server_default=func.now())
+    update_at = Column(DateTime(timezone=True), onupdate=func.now())
+    name = Column(String, nullable=False)
 
     client_id = Column(Integer, ForeignKey('client.id', ondelete='CASCADE'), nullable=False)
     client = relationship('Client', back_populates='ticket')
