@@ -7,8 +7,8 @@ from alembic import context
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
-from src.foxford_api.config import DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASS
-from src.foxford_api.models import Base
+from foxford_api.config import DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASS
+from foxford_api.models import Base
 config = context.config
 
 section = config.config_ini_section

@@ -66,6 +66,7 @@ class Message(Base):
     """
     Таблица с сообщениями
     """
+    __tablemane__ = 'message'
     id = Column(Integer, primary_key=True, index=True, nullable=False)
 
     ticket_id = Column(Integer, ForeignKey('ticker.id', ondelete='CASCADE'), nullable=False)
