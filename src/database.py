@@ -16,4 +16,13 @@ session = sessionmaker(autocommit=False,
 """ Make session """
 db = session()
 
+
+def get_db():
+    db = session()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
 Base = declarative_base()
